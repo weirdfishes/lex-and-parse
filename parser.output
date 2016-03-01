@@ -1,0 +1,1582 @@
+State 43 conflicts: 1 shift/reduce
+State 86 conflicts: 1 shift/reduce
+State 90 conflicts: 11 shift/reduce
+State 91 conflicts: 11 shift/reduce
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: Decl
+    2        | Program Decl
+
+    3 Decl: VariableDecl
+    4     | FunctionDecl
+
+    5 VariableDecl: Variable SEMICOLON
+
+    6 Variable: Type ID
+
+    7 Type: INT
+    8     | BOOLC
+    9     | STRINGC
+   10     | CHARC
+   11     | FLOATC
+
+   12 FunctionDecl: Type ID LPARAN Formals RPARAN StmtBlock
+   13             | VOID ID LPARAN Formals RPARAN StmtBlock
+
+   14 Formals: Variable
+   15        | Formals Variable COMMA
+
+   16 StmtBlock: LBRACE Lone Ltwo RBRACE
+
+   17 Lone: /* empty */
+   18     | Lone VariableDecl
+
+   19 Ltwo: /* empty */
+   20     | Ltwo Stmt
+
+   21 Stmt: Expr SEMICOLON
+   22     | IfStmt
+   23     | WhileStmt
+   24     | ForStmt
+   25     | ReturnStmt
+   26     | PrintStmt
+   27     | StmtBlock
+
+   28 IfStmt: IF LPARAN Expr RPARAN Stmt ELSE Stmt
+
+   29 WhileStmt: WHILE LPARAN Expr RPARAN Stmt
+
+   30 ForStmt: FOR LPARAN Expr SEMICOLON Expr SEMICOLON Expr RPARAN Stmt
+
+   31 ReturnStmt: RETURN Expr
+
+   32 PrintStmt: PRINTF LPARAN STRING COMMA ExprList RPARAN SEMICOLON
+   33          | PRINTF LPARAN Constant RPARAN SEMICOLON
+   34          | PRINTF LPARAN ID RPARAN
+
+   35 ExprList: Expr
+   36         | ExprList Expr COMMA
+
+   37 Expr: ID ASSIGN Expr
+   38     | Constant
+   39     | ID
+   40     | Call
+   41     | LPARAN Expr RPARAN
+   42     | Expr MathOp Expr
+   43     | Expr Comp Expr
+
+   44 MathOp: ADD
+   45       | SUB
+   46       | DIV
+   47       | MUL
+   48       | MOD
+
+   49 Comp: LTHAN
+   50     | LEQUAL
+   51     | GTHAN
+   52     | GEQUAL
+   53     | EQUAL
+   54     | NEQUAL
+
+   55 Call: ID LPARAN ExprList RPARAN
+
+   56 Constant: DIGIT
+   57         | BOOL
+   58         | STRING
+   59         | CHAR
+   60         | FLOAT
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ADD (258) 44
+SUB (259) 45
+MUL (260) 47
+DIV (261) 46
+MOD (262) 48
+LTHAN (263) 49
+LEQUAL (264) 50
+GTHAN (265) 51
+GEQUAL (266) 52
+NEQUAL (267) 54
+ASSIGN (268) 37
+SEMICOLON (269) 5 21 30 32 33
+COMMA (270) 15 32 36
+DIGIT (271) 56
+STRINGC (272) 9
+BOOLC (273) 8
+CHARC (274) 10
+IF (275) 28
+LBRACE (276) 16
+RBRACE (277) 16
+LPARAN (278) 12 13 28 29 30 32 33 34 41 55
+RPARAN (279) 12 13 28 29 30 32 33 34 41 55
+EQUAL (280) 53
+RETURN (281) 31
+INT (282) 7
+WHILE (283) 29
+VOID (284) 13
+PRINTF (285) 32 33 34
+ELSE (286) 28
+FLOAT (287) 60
+ID (288) 6 12 13 34 37 39 55
+FOR (289) 30
+FLOATC (290) 11
+STRING (291) 32 58
+BOOL (292) 57
+CHAR (293) 59
+
+
+Nonterminals, with rules where they appear
+
+$accept (39)
+    on left: 0
+Program (40)
+    on left: 1 2, on right: 0 2
+Decl (41)
+    on left: 3 4, on right: 1 2
+VariableDecl (42)
+    on left: 5, on right: 3 18
+Variable (43)
+    on left: 6, on right: 5 14 15
+Type (44)
+    on left: 7 8 9 10 11, on right: 6 12
+FunctionDecl (45)
+    on left: 12 13, on right: 4
+Formals (46)
+    on left: 14 15, on right: 12 13 15
+StmtBlock (47)
+    on left: 16, on right: 12 13 27
+Lone (48)
+    on left: 17 18, on right: 16 18
+Ltwo (49)
+    on left: 19 20, on right: 16 20
+Stmt (50)
+    on left: 21 22 23 24 25 26 27, on right: 20 28 29 30
+IfStmt (51)
+    on left: 28, on right: 22
+WhileStmt (52)
+    on left: 29, on right: 23
+ForStmt (53)
+    on left: 30, on right: 24
+ReturnStmt (54)
+    on left: 31, on right: 25
+PrintStmt (55)
+    on left: 32 33 34, on right: 26
+ExprList (56)
+    on left: 35 36, on right: 32 36 55
+Expr (57)
+    on left: 37 38 39 40 41 42 43, on right: 21 28 29 30 31 35 36 37
+    41 42 43
+MathOp (58)
+    on left: 44 45 46 47 48, on right: 42
+Comp (59)
+    on left: 49 50 51 52 53 54, on right: 43
+Call (60)
+    on left: 55, on right: 40
+Constant (61)
+    on left: 56 57 58 59 60, on right: 33 38
+
+
+state 0
+
+    0 $accept: . Program $end
+
+    STRINGC  shift, and go to state 1
+    BOOLC    shift, and go to state 2
+    CHARC    shift, and go to state 3
+    INT      shift, and go to state 4
+    VOID     shift, and go to state 5
+    FLOATC   shift, and go to state 6
+
+    Program       go to state 7
+    Decl          go to state 8
+    VariableDecl  go to state 9
+    Variable      go to state 10
+    Type          go to state 11
+    FunctionDecl  go to state 12
+
+
+state 1
+
+    9 Type: STRINGC .
+
+    $default  reduce using rule 9 (Type)
+
+
+state 2
+
+    8 Type: BOOLC .
+
+    $default  reduce using rule 8 (Type)
+
+
+state 3
+
+   10 Type: CHARC .
+
+    $default  reduce using rule 10 (Type)
+
+
+state 4
+
+    7 Type: INT .
+
+    $default  reduce using rule 7 (Type)
+
+
+state 5
+
+   13 FunctionDecl: VOID . ID LPARAN Formals RPARAN StmtBlock
+
+    ID  shift, and go to state 13
+
+
+state 6
+
+   11 Type: FLOATC .
+
+    $default  reduce using rule 11 (Type)
+
+
+state 7
+
+    0 $accept: Program . $end
+    2 Program: Program . Decl
+
+    $end     shift, and go to state 14
+    STRINGC  shift, and go to state 1
+    BOOLC    shift, and go to state 2
+    CHARC    shift, and go to state 3
+    INT      shift, and go to state 4
+    VOID     shift, and go to state 5
+    FLOATC   shift, and go to state 6
+
+    Decl          go to state 15
+    VariableDecl  go to state 9
+    Variable      go to state 10
+    Type          go to state 11
+    FunctionDecl  go to state 12
+
+
+state 8
+
+    1 Program: Decl .
+
+    $default  reduce using rule 1 (Program)
+
+
+state 9
+
+    3 Decl: VariableDecl .
+
+    $default  reduce using rule 3 (Decl)
+
+
+state 10
+
+    5 VariableDecl: Variable . SEMICOLON
+
+    SEMICOLON  shift, and go to state 16
+
+
+state 11
+
+    6 Variable: Type . ID
+   12 FunctionDecl: Type . ID LPARAN Formals RPARAN StmtBlock
+
+    ID  shift, and go to state 17
+
+
+state 12
+
+    4 Decl: FunctionDecl .
+
+    $default  reduce using rule 4 (Decl)
+
+
+state 13
+
+   13 FunctionDecl: VOID ID . LPARAN Formals RPARAN StmtBlock
+
+    LPARAN  shift, and go to state 18
+
+
+state 14
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+state 15
+
+    2 Program: Program Decl .
+
+    $default  reduce using rule 2 (Program)
+
+
+state 16
+
+    5 VariableDecl: Variable SEMICOLON .
+
+    $default  reduce using rule 5 (VariableDecl)
+
+
+state 17
+
+    6 Variable: Type ID .
+   12 FunctionDecl: Type ID . LPARAN Formals RPARAN StmtBlock
+
+    LPARAN  shift, and go to state 19
+
+    $default  reduce using rule 6 (Variable)
+
+
+state 18
+
+   13 FunctionDecl: VOID ID LPARAN . Formals RPARAN StmtBlock
+
+    STRINGC  shift, and go to state 1
+    BOOLC    shift, and go to state 2
+    CHARC    shift, and go to state 3
+    INT      shift, and go to state 4
+    FLOATC   shift, and go to state 6
+
+    Variable  go to state 20
+    Type      go to state 21
+    Formals   go to state 22
+
+
+state 19
+
+   12 FunctionDecl: Type ID LPARAN . Formals RPARAN StmtBlock
+
+    STRINGC  shift, and go to state 1
+    BOOLC    shift, and go to state 2
+    CHARC    shift, and go to state 3
+    INT      shift, and go to state 4
+    FLOATC   shift, and go to state 6
+
+    Variable  go to state 20
+    Type      go to state 21
+    Formals   go to state 23
+
+
+state 20
+
+   14 Formals: Variable .
+
+    $default  reduce using rule 14 (Formals)
+
+
+state 21
+
+    6 Variable: Type . ID
+
+    ID  shift, and go to state 24
+
+
+state 22
+
+   13 FunctionDecl: VOID ID LPARAN Formals . RPARAN StmtBlock
+   15 Formals: Formals . Variable COMMA
+
+    STRINGC  shift, and go to state 1
+    BOOLC    shift, and go to state 2
+    CHARC    shift, and go to state 3
+    RPARAN   shift, and go to state 25
+    INT      shift, and go to state 4
+    FLOATC   shift, and go to state 6
+
+    Variable  go to state 26
+    Type      go to state 21
+
+
+state 23
+
+   12 FunctionDecl: Type ID LPARAN Formals . RPARAN StmtBlock
+   15 Formals: Formals . Variable COMMA
+
+    STRINGC  shift, and go to state 1
+    BOOLC    shift, and go to state 2
+    CHARC    shift, and go to state 3
+    RPARAN   shift, and go to state 27
+    INT      shift, and go to state 4
+    FLOATC   shift, and go to state 6
+
+    Variable  go to state 26
+    Type      go to state 21
+
+
+state 24
+
+    6 Variable: Type ID .
+
+    $default  reduce using rule 6 (Variable)
+
+
+state 25
+
+   13 FunctionDecl: VOID ID LPARAN Formals RPARAN . StmtBlock
+
+    LBRACE  shift, and go to state 28
+
+    StmtBlock  go to state 29
+
+
+state 26
+
+   15 Formals: Formals Variable . COMMA
+
+    COMMA  shift, and go to state 30
+
+
+state 27
+
+   12 FunctionDecl: Type ID LPARAN Formals RPARAN . StmtBlock
+
+    LBRACE  shift, and go to state 28
+
+    StmtBlock  go to state 31
+
+
+state 28
+
+   16 StmtBlock: LBRACE . Lone Ltwo RBRACE
+
+    $default  reduce using rule 17 (Lone)
+
+    Lone  go to state 32
+
+
+state 29
+
+   13 FunctionDecl: VOID ID LPARAN Formals RPARAN StmtBlock .
+
+    $default  reduce using rule 13 (FunctionDecl)
+
+
+state 30
+
+   15 Formals: Formals Variable COMMA .
+
+    $default  reduce using rule 15 (Formals)
+
+
+state 31
+
+   12 FunctionDecl: Type ID LPARAN Formals RPARAN StmtBlock .
+
+    $default  reduce using rule 12 (FunctionDecl)
+
+
+state 32
+
+   16 StmtBlock: LBRACE Lone . Ltwo RBRACE
+   18 Lone: Lone . VariableDecl
+
+    STRINGC  shift, and go to state 1
+    BOOLC    shift, and go to state 2
+    CHARC    shift, and go to state 3
+    INT      shift, and go to state 4
+    FLOATC   shift, and go to state 6
+
+    $default  reduce using rule 19 (Ltwo)
+
+    VariableDecl  go to state 33
+    Variable      go to state 10
+    Type          go to state 21
+    Ltwo          go to state 34
+
+
+state 33
+
+   18 Lone: Lone VariableDecl .
+
+    $default  reduce using rule 18 (Lone)
+
+
+state 34
+
+   16 StmtBlock: LBRACE Lone Ltwo . RBRACE
+   20 Ltwo: Ltwo . Stmt
+
+    DIGIT   shift, and go to state 35
+    IF      shift, and go to state 36
+    LBRACE  shift, and go to state 28
+    RBRACE  shift, and go to state 37
+    LPARAN  shift, and go to state 38
+    RETURN  shift, and go to state 39
+    WHILE   shift, and go to state 40
+    PRINTF  shift, and go to state 41
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    FOR     shift, and go to state 44
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    StmtBlock   go to state 48
+    Stmt        go to state 49
+    IfStmt      go to state 50
+    WhileStmt   go to state 51
+    ForStmt     go to state 52
+    ReturnStmt  go to state 53
+    PrintStmt   go to state 54
+    Expr        go to state 55
+    Call        go to state 56
+    Constant    go to state 57
+
+
+state 35
+
+   56 Constant: DIGIT .
+
+    $default  reduce using rule 56 (Constant)
+
+
+state 36
+
+   28 IfStmt: IF . LPARAN Expr RPARAN Stmt ELSE Stmt
+
+    LPARAN  shift, and go to state 58
+
+
+state 37
+
+   16 StmtBlock: LBRACE Lone Ltwo RBRACE .
+
+    $default  reduce using rule 16 (StmtBlock)
+
+
+state 38
+
+   41 Expr: LPARAN . Expr RPARAN
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 59
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 39
+
+   31 ReturnStmt: RETURN . Expr
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 60
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 40
+
+   29 WhileStmt: WHILE . LPARAN Expr RPARAN Stmt
+
+    LPARAN  shift, and go to state 61
+
+
+state 41
+
+   32 PrintStmt: PRINTF . LPARAN STRING COMMA ExprList RPARAN SEMICOLON
+   33          | PRINTF . LPARAN Constant RPARAN SEMICOLON
+   34          | PRINTF . LPARAN ID RPARAN
+
+    LPARAN  shift, and go to state 62
+
+
+state 42
+
+   60 Constant: FLOAT .
+
+    $default  reduce using rule 60 (Constant)
+
+
+state 43
+
+   37 Expr: ID . ASSIGN Expr
+   39     | ID .
+   55 Call: ID . LPARAN ExprList RPARAN
+
+    ASSIGN  shift, and go to state 63
+    LPARAN  shift, and go to state 64
+
+    LPARAN    [reduce using rule 39 (Expr)]
+    $default  reduce using rule 39 (Expr)
+
+
+state 44
+
+   30 ForStmt: FOR . LPARAN Expr SEMICOLON Expr SEMICOLON Expr RPARAN Stmt
+
+    LPARAN  shift, and go to state 65
+
+
+state 45
+
+   58 Constant: STRING .
+
+    $default  reduce using rule 58 (Constant)
+
+
+state 46
+
+   57 Constant: BOOL .
+
+    $default  reduce using rule 57 (Constant)
+
+
+state 47
+
+   59 Constant: CHAR .
+
+    $default  reduce using rule 59 (Constant)
+
+
+state 48
+
+   27 Stmt: StmtBlock .
+
+    $default  reduce using rule 27 (Stmt)
+
+
+state 49
+
+   20 Ltwo: Ltwo Stmt .
+
+    $default  reduce using rule 20 (Ltwo)
+
+
+state 50
+
+   22 Stmt: IfStmt .
+
+    $default  reduce using rule 22 (Stmt)
+
+
+state 51
+
+   23 Stmt: WhileStmt .
+
+    $default  reduce using rule 23 (Stmt)
+
+
+state 52
+
+   24 Stmt: ForStmt .
+
+    $default  reduce using rule 24 (Stmt)
+
+
+state 53
+
+   25 Stmt: ReturnStmt .
+
+    $default  reduce using rule 25 (Stmt)
+
+
+state 54
+
+   26 Stmt: PrintStmt .
+
+    $default  reduce using rule 26 (Stmt)
+
+
+state 55
+
+   21 Stmt: Expr . SEMICOLON
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD        shift, and go to state 66
+    SUB        shift, and go to state 67
+    MUL        shift, and go to state 68
+    DIV        shift, and go to state 69
+    MOD        shift, and go to state 70
+    LTHAN      shift, and go to state 71
+    LEQUAL     shift, and go to state 72
+    GTHAN      shift, and go to state 73
+    GEQUAL     shift, and go to state 74
+    NEQUAL     shift, and go to state 75
+    SEMICOLON  shift, and go to state 76
+    EQUAL      shift, and go to state 77
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 56
+
+   40 Expr: Call .
+
+    $default  reduce using rule 40 (Expr)
+
+
+state 57
+
+   38 Expr: Constant .
+
+    $default  reduce using rule 38 (Expr)
+
+
+state 58
+
+   28 IfStmt: IF LPARAN . Expr RPARAN Stmt ELSE Stmt
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 80
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 59
+
+   41 Expr: LPARAN Expr . RPARAN
+   42     | Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    RPARAN  shift, and go to state 81
+    EQUAL   shift, and go to state 77
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 60
+
+   31 ReturnStmt: RETURN Expr .
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    EQUAL   shift, and go to state 77
+
+    $default  reduce using rule 31 (ReturnStmt)
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 61
+
+   29 WhileStmt: WHILE LPARAN . Expr RPARAN Stmt
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 82
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 62
+
+   32 PrintStmt: PRINTF LPARAN . STRING COMMA ExprList RPARAN SEMICOLON
+   33          | PRINTF LPARAN . Constant RPARAN SEMICOLON
+   34          | PRINTF LPARAN . ID RPARAN
+
+    DIGIT   shift, and go to state 35
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 83
+    STRING  shift, and go to state 84
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Constant  go to state 85
+
+
+state 63
+
+   37 Expr: ID ASSIGN . Expr
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 86
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 64
+
+   55 Call: ID LPARAN . ExprList RPARAN
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    ExprList  go to state 87
+    Expr      go to state 88
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 65
+
+   30 ForStmt: FOR LPARAN . Expr SEMICOLON Expr SEMICOLON Expr RPARAN Stmt
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 89
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 66
+
+   44 MathOp: ADD .
+
+    $default  reduce using rule 44 (MathOp)
+
+
+state 67
+
+   45 MathOp: SUB .
+
+    $default  reduce using rule 45 (MathOp)
+
+
+state 68
+
+   47 MathOp: MUL .
+
+    $default  reduce using rule 47 (MathOp)
+
+
+state 69
+
+   46 MathOp: DIV .
+
+    $default  reduce using rule 46 (MathOp)
+
+
+state 70
+
+   48 MathOp: MOD .
+
+    $default  reduce using rule 48 (MathOp)
+
+
+state 71
+
+   49 Comp: LTHAN .
+
+    $default  reduce using rule 49 (Comp)
+
+
+state 72
+
+   50 Comp: LEQUAL .
+
+    $default  reduce using rule 50 (Comp)
+
+
+state 73
+
+   51 Comp: GTHAN .
+
+    $default  reduce using rule 51 (Comp)
+
+
+state 74
+
+   52 Comp: GEQUAL .
+
+    $default  reduce using rule 52 (Comp)
+
+
+state 75
+
+   54 Comp: NEQUAL .
+
+    $default  reduce using rule 54 (Comp)
+
+
+state 76
+
+   21 Stmt: Expr SEMICOLON .
+
+    $default  reduce using rule 21 (Stmt)
+
+
+state 77
+
+   53 Comp: EQUAL .
+
+    $default  reduce using rule 53 (Comp)
+
+
+state 78
+
+   42 Expr: Expr MathOp . Expr
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 90
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 79
+
+   43 Expr: Expr Comp . Expr
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 91
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 80
+
+   28 IfStmt: IF LPARAN Expr . RPARAN Stmt ELSE Stmt
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    RPARAN  shift, and go to state 92
+    EQUAL   shift, and go to state 77
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 81
+
+   41 Expr: LPARAN Expr RPARAN .
+
+    $default  reduce using rule 41 (Expr)
+
+
+state 82
+
+   29 WhileStmt: WHILE LPARAN Expr . RPARAN Stmt
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    RPARAN  shift, and go to state 93
+    EQUAL   shift, and go to state 77
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 83
+
+   34 PrintStmt: PRINTF LPARAN ID . RPARAN
+
+    RPARAN  shift, and go to state 94
+
+
+state 84
+
+   32 PrintStmt: PRINTF LPARAN STRING . COMMA ExprList RPARAN SEMICOLON
+   58 Constant: STRING .
+
+    COMMA  shift, and go to state 95
+
+    $default  reduce using rule 58 (Constant)
+
+
+state 85
+
+   33 PrintStmt: PRINTF LPARAN Constant . RPARAN SEMICOLON
+
+    RPARAN  shift, and go to state 96
+
+
+state 86
+
+   37 Expr: ID ASSIGN Expr .
+   42     | Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    EQUAL   shift, and go to state 77
+
+    MOD       [reduce using rule 37 (Expr)]
+    $default  reduce using rule 37 (Expr)
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 87
+
+   36 ExprList: ExprList . Expr COMMA
+   55 Call: ID LPARAN ExprList . RPARAN
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    RPARAN  shift, and go to state 97
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 98
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 88
+
+   35 ExprList: Expr .
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    EQUAL   shift, and go to state 77
+
+    $default  reduce using rule 35 (ExprList)
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 89
+
+   30 ForStmt: FOR LPARAN Expr . SEMICOLON Expr SEMICOLON Expr RPARAN Stmt
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD        shift, and go to state 66
+    SUB        shift, and go to state 67
+    MUL        shift, and go to state 68
+    DIV        shift, and go to state 69
+    MOD        shift, and go to state 70
+    LTHAN      shift, and go to state 71
+    LEQUAL     shift, and go to state 72
+    GTHAN      shift, and go to state 73
+    GEQUAL     shift, and go to state 74
+    NEQUAL     shift, and go to state 75
+    SEMICOLON  shift, and go to state 99
+    EQUAL      shift, and go to state 77
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 90
+
+   42 Expr: Expr . MathOp Expr
+   42     | Expr MathOp Expr .
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    EQUAL   shift, and go to state 77
+
+    ADD       [reduce using rule 42 (Expr)]
+    SUB       [reduce using rule 42 (Expr)]
+    MUL       [reduce using rule 42 (Expr)]
+    DIV       [reduce using rule 42 (Expr)]
+    MOD       [reduce using rule 42 (Expr)]
+    LTHAN     [reduce using rule 42 (Expr)]
+    LEQUAL    [reduce using rule 42 (Expr)]
+    GTHAN     [reduce using rule 42 (Expr)]
+    GEQUAL    [reduce using rule 42 (Expr)]
+    NEQUAL    [reduce using rule 42 (Expr)]
+    EQUAL     [reduce using rule 42 (Expr)]
+    $default  reduce using rule 42 (Expr)
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 91
+
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+   43     | Expr Comp Expr .
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    EQUAL   shift, and go to state 77
+
+    ADD       [reduce using rule 43 (Expr)]
+    SUB       [reduce using rule 43 (Expr)]
+    MUL       [reduce using rule 43 (Expr)]
+    DIV       [reduce using rule 43 (Expr)]
+    MOD       [reduce using rule 43 (Expr)]
+    LTHAN     [reduce using rule 43 (Expr)]
+    LEQUAL    [reduce using rule 43 (Expr)]
+    GTHAN     [reduce using rule 43 (Expr)]
+    GEQUAL    [reduce using rule 43 (Expr)]
+    NEQUAL    [reduce using rule 43 (Expr)]
+    EQUAL     [reduce using rule 43 (Expr)]
+    $default  reduce using rule 43 (Expr)
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 92
+
+   28 IfStmt: IF LPARAN Expr RPARAN . Stmt ELSE Stmt
+
+    DIGIT   shift, and go to state 35
+    IF      shift, and go to state 36
+    LBRACE  shift, and go to state 28
+    LPARAN  shift, and go to state 38
+    RETURN  shift, and go to state 39
+    WHILE   shift, and go to state 40
+    PRINTF  shift, and go to state 41
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    FOR     shift, and go to state 44
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    StmtBlock   go to state 48
+    Stmt        go to state 100
+    IfStmt      go to state 50
+    WhileStmt   go to state 51
+    ForStmt     go to state 52
+    ReturnStmt  go to state 53
+    PrintStmt   go to state 54
+    Expr        go to state 55
+    Call        go to state 56
+    Constant    go to state 57
+
+
+state 93
+
+   29 WhileStmt: WHILE LPARAN Expr RPARAN . Stmt
+
+    DIGIT   shift, and go to state 35
+    IF      shift, and go to state 36
+    LBRACE  shift, and go to state 28
+    LPARAN  shift, and go to state 38
+    RETURN  shift, and go to state 39
+    WHILE   shift, and go to state 40
+    PRINTF  shift, and go to state 41
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    FOR     shift, and go to state 44
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    StmtBlock   go to state 48
+    Stmt        go to state 101
+    IfStmt      go to state 50
+    WhileStmt   go to state 51
+    ForStmt     go to state 52
+    ReturnStmt  go to state 53
+    PrintStmt   go to state 54
+    Expr        go to state 55
+    Call        go to state 56
+    Constant    go to state 57
+
+
+state 94
+
+   34 PrintStmt: PRINTF LPARAN ID RPARAN .
+
+    $default  reduce using rule 34 (PrintStmt)
+
+
+state 95
+
+   32 PrintStmt: PRINTF LPARAN STRING COMMA . ExprList RPARAN SEMICOLON
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    ExprList  go to state 102
+    Expr      go to state 88
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 96
+
+   33 PrintStmt: PRINTF LPARAN Constant RPARAN . SEMICOLON
+
+    SEMICOLON  shift, and go to state 103
+
+
+state 97
+
+   55 Call: ID LPARAN ExprList RPARAN .
+
+    $default  reduce using rule 55 (Call)
+
+
+state 98
+
+   36 ExprList: ExprList Expr . COMMA
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    COMMA   shift, and go to state 104
+    EQUAL   shift, and go to state 77
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 99
+
+   30 ForStmt: FOR LPARAN Expr SEMICOLON . Expr SEMICOLON Expr RPARAN Stmt
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 105
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 100
+
+   28 IfStmt: IF LPARAN Expr RPARAN Stmt . ELSE Stmt
+
+    ELSE  shift, and go to state 106
+
+
+state 101
+
+   29 WhileStmt: WHILE LPARAN Expr RPARAN Stmt .
+
+    $default  reduce using rule 29 (WhileStmt)
+
+
+state 102
+
+   32 PrintStmt: PRINTF LPARAN STRING COMMA ExprList . RPARAN SEMICOLON
+   36 ExprList: ExprList . Expr COMMA
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    RPARAN  shift, and go to state 107
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 98
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 103
+
+   33 PrintStmt: PRINTF LPARAN Constant RPARAN SEMICOLON .
+
+    $default  reduce using rule 33 (PrintStmt)
+
+
+state 104
+
+   36 ExprList: ExprList Expr COMMA .
+
+    $default  reduce using rule 36 (ExprList)
+
+
+state 105
+
+   30 ForStmt: FOR LPARAN Expr SEMICOLON Expr . SEMICOLON Expr RPARAN Stmt
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD        shift, and go to state 66
+    SUB        shift, and go to state 67
+    MUL        shift, and go to state 68
+    DIV        shift, and go to state 69
+    MOD        shift, and go to state 70
+    LTHAN      shift, and go to state 71
+    LEQUAL     shift, and go to state 72
+    GTHAN      shift, and go to state 73
+    GEQUAL     shift, and go to state 74
+    NEQUAL     shift, and go to state 75
+    SEMICOLON  shift, and go to state 108
+    EQUAL      shift, and go to state 77
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 106
+
+   28 IfStmt: IF LPARAN Expr RPARAN Stmt ELSE . Stmt
+
+    DIGIT   shift, and go to state 35
+    IF      shift, and go to state 36
+    LBRACE  shift, and go to state 28
+    LPARAN  shift, and go to state 38
+    RETURN  shift, and go to state 39
+    WHILE   shift, and go to state 40
+    PRINTF  shift, and go to state 41
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    FOR     shift, and go to state 44
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    StmtBlock   go to state 48
+    Stmt        go to state 109
+    IfStmt      go to state 50
+    WhileStmt   go to state 51
+    ForStmt     go to state 52
+    ReturnStmt  go to state 53
+    PrintStmt   go to state 54
+    Expr        go to state 55
+    Call        go to state 56
+    Constant    go to state 57
+
+
+state 107
+
+   32 PrintStmt: PRINTF LPARAN STRING COMMA ExprList RPARAN . SEMICOLON
+
+    SEMICOLON  shift, and go to state 110
+
+
+state 108
+
+   30 ForStmt: FOR LPARAN Expr SEMICOLON Expr SEMICOLON . Expr RPARAN Stmt
+
+    DIGIT   shift, and go to state 35
+    LPARAN  shift, and go to state 38
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    Expr      go to state 111
+    Call      go to state 56
+    Constant  go to state 57
+
+
+state 109
+
+   28 IfStmt: IF LPARAN Expr RPARAN Stmt ELSE Stmt .
+
+    $default  reduce using rule 28 (IfStmt)
+
+
+state 110
+
+   32 PrintStmt: PRINTF LPARAN STRING COMMA ExprList RPARAN SEMICOLON .
+
+    $default  reduce using rule 32 (PrintStmt)
+
+
+state 111
+
+   30 ForStmt: FOR LPARAN Expr SEMICOLON Expr SEMICOLON Expr . RPARAN Stmt
+   42 Expr: Expr . MathOp Expr
+   43     | Expr . Comp Expr
+
+    ADD     shift, and go to state 66
+    SUB     shift, and go to state 67
+    MUL     shift, and go to state 68
+    DIV     shift, and go to state 69
+    MOD     shift, and go to state 70
+    LTHAN   shift, and go to state 71
+    LEQUAL  shift, and go to state 72
+    GTHAN   shift, and go to state 73
+    GEQUAL  shift, and go to state 74
+    NEQUAL  shift, and go to state 75
+    RPARAN  shift, and go to state 112
+    EQUAL   shift, and go to state 77
+
+    MathOp  go to state 78
+    Comp    go to state 79
+
+
+state 112
+
+   30 ForStmt: FOR LPARAN Expr SEMICOLON Expr SEMICOLON Expr RPARAN . Stmt
+
+    DIGIT   shift, and go to state 35
+    IF      shift, and go to state 36
+    LBRACE  shift, and go to state 28
+    LPARAN  shift, and go to state 38
+    RETURN  shift, and go to state 39
+    WHILE   shift, and go to state 40
+    PRINTF  shift, and go to state 41
+    FLOAT   shift, and go to state 42
+    ID      shift, and go to state 43
+    FOR     shift, and go to state 44
+    STRING  shift, and go to state 45
+    BOOL    shift, and go to state 46
+    CHAR    shift, and go to state 47
+
+    StmtBlock   go to state 48
+    Stmt        go to state 113
+    IfStmt      go to state 50
+    WhileStmt   go to state 51
+    ForStmt     go to state 52
+    ReturnStmt  go to state 53
+    PrintStmt   go to state 54
+    Expr        go to state 55
+    Call        go to state 56
+    Constant    go to state 57
+
+
+state 113
+
+   30 ForStmt: FOR LPARAN Expr SEMICOLON Expr SEMICOLON Expr RPARAN Stmt .
+
+    $default  reduce using rule 30 (ForStmt)
