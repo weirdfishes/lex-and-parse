@@ -1,0 +1,19 @@
+=========
+additions
+=========
+
+  > none..
+  
+
+=========
+conflicts
+=========
+
+  > The major conflict was in resolving the expression production in the grammar.
+  > This production initialliy could produce incorrect expressions, such as:
+      > x = x + y > 2 + y;
+  > This is because the expression production would recursively produce itself as 
+  > well as other productions such as comparison expressions and assignment expressions.
+  > To fix this, multiple different production rules and non-terminal symbols were added
+  > in order to accomodate for the various situations
+
