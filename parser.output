@@ -7,10 +7,10 @@ Grammar
 
     0 $accept: Program $end
 
-    1 Program: DeclPrime
+    1 Program: Declare
 
-    2 DeclPrime: DeclPrime Decl
-    3          | Decl
+    2 Declare: Declare Decl
+    3        | Decl
 
     4 Decl: VariableDecl
     5     | FunctionDecl
@@ -24,8 +24,8 @@ Grammar
    10     | STRING
    11     | CHAR
 
-   12 FunctionDecl: Type Identifier LPAR OptionalFormals RPAR StmtBlock
-   13             | VOID Identifier LPAR OptionalFormals RPAR StmtBlock
+   12 FunctionDecl: Type Identifier LPAREN OptionalFormals RPAREN StmtBlock
+   13             | VOID Identifier LPAREN OptionalFormals RPAREN StmtBlock
 
    14 OptionalFormals: Formals
    15                | /* empty */
@@ -53,26 +53,26 @@ Grammar
    32     | ReturnStmt
    33     | StmtBlock
 
-   34 IfStmt: IF LPAR Expr RPAR Stmt ELSE Stmt
-   35       | IF LPAR Expr RPAR Stmt
+   34 IfStmt: IF LPAREN Expr RPAREN Stmt ELSE Stmt
+   35       | IF LPAREN Expr RPAREN Stmt
 
-   36 WhileStmt: WHILE LPAR Expr RPAR Stmt
+   36 WhileStmt: WHILE LPAREN Expr RPAREN Stmt
 
-   37 ForStmt: FOR LPAR SEMICOLON Expr SEMICOLON RPAR Stmt
-   38        | FOR LPAR Expr SEMICOLON Expr SEMICOLON RPAR Stmt
-   39        | FOR LPAR SEMICOLON Expr SEMICOLON Expr RPAR Stmt
-   40        | FOR LPAR Expr SEMICOLON Expr SEMICOLON Expr RPAR Stmt
-   41        | FOR LPAR Expr SEMICOLON SEMICOLON RPAR Stmt
-   42        | FOR LPAR SEMICOLON SEMICOLON Expr RPAR Stmt
-   43        | FOR LPAR SEMICOLON SEMICOLON RPAR Stmt
-   44        | FOR LPAR Expr SEMICOLON SEMICOLON Expr RPAR Stmt
+   37 ForStmt: FOR LPAREN SEMICOLON Expr SEMICOLON RPAREN Stmt
+   38        | FOR LPAREN Expr SEMICOLON Expr SEMICOLON RPAREN Stmt
+   39        | FOR LPAREN SEMICOLON Expr SEMICOLON Expr RPAREN Stmt
+   40        | FOR LPAREN Expr SEMICOLON Expr SEMICOLON Expr RPAREN Stmt
+   41        | FOR LPAREN Expr SEMICOLON SEMICOLON RPAREN Stmt
+   42        | FOR LPAREN SEMICOLON SEMICOLON Expr RPAREN Stmt
+   43        | FOR LPAREN SEMICOLON SEMICOLON RPAREN Stmt
+   44        | FOR LPAREN Expr SEMICOLON SEMICOLON Expr RPAREN Stmt
 
    45 ReturnStmt: RETURN SEMICOLON
    46           | RETURN Expr SEMICOLON
 
-   47 PrintStmt: PRINTF LPAR STRINGCONSTANT COMMA ExprList RPAR SEMICOLON
-   48          | PRINTF LPAR Constant RPAR SEMICOLON
-   49          | PRINTF LPAR ID RPAR SEMICOLON
+   47 PrintStmt: PRINTF LPAREN STRINGCONST COMMA ExprList RPAREN SEMICOLON
+   48          | PRINTF LPAREN Constant RPAREN SEMICOLON
+   49          | PRINTF LPAREN ID RPAREN SEMICOLON
 
    50 ExprList: ExprList COMMA Expr
    51         | Expr
@@ -81,21 +81,21 @@ Grammar
    53     | Constant
    54     | Identifier
    55     | Call
-   56     | LPAR Expr RPAR
+   56     | LPAREN Expr RPAREN
    57     | Expr ADD Expr
    58     | Expr SUB Expr
    59     | Expr MULT Expr
    60     | Expr DIV Expr
    61     | Expr MOD Expr
    62     | SUB Expr
-   63     | Expr LESSTH Expr
-   64     | Expr LESSTHEQ Expr
-   65     | Expr GREATTH Expr
-   66     | Expr GREATTHEQ Expr
+   63     | Expr LESSTHAN Expr
+   64     | Expr LEQ Expr
+   65     | Expr GREATERTHAN Expr
+   66     | Expr GEQ Expr
    67     | Expr EQUALS Expr
    68     | Expr NOTEQUALS Expr
 
-   69 Call: Identifier LPAR OptionalExprList RPAR
+   69 Call: Identifier LPAREN OptionalExprList RPAREN
 
    70 Identifier: ID
 
@@ -105,51 +105,51 @@ Grammar
    73 Actuals: Expr
    74        | Actuals COMMA Expr
 
-   75 Constant: STRINGCONSTANT
-   76         | INTCONSTANT
-   77         | BOOLCONSTANT
-   78         | CHARCONSTANT
+   75 Constant: STRINGCONST
+   76         | INTCONST
+   77         | BOOLCONST
+   78         | CHARCONST
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-NEWLINE (258)
-INT (259) 8
-CHAR (260) 11
-STRING (261) 10
-ADD (262) 57
-SUB (263) 58 62
-MULT (264) 59
-DIV (265) 60
-MOD (266) 61
-LESSTH (267) 63
-GREATTH (268) 65
-LESSTHEQ (269) 64
-GREATTHEQ (270) 66
-EQUALS (271) 67
-NOTEQUALS (272) 68
-EQUAL (273) 52
-SEMICOLON (274) 6 27 28 37 38 39 40 41 42 43 44 45 46 47 48 49
-COMMA (275) 17 47 50 74
-BOOL (276) 9
-IF (277) 34 35
-ELSE (278) 34
-RETURN (279) 45 46
-FOR (280) 37 38 39 40 41 42 43 44
-VOID (281) 13
-WHILE (282) 36
-PRINTF (283) 47 48 49
-LPAR (284) 12 13 34 35 36 37 38 39 40 41 42 43 44 47 48 49 56 69
-RPAR (285) 12 13 34 35 36 37 38 39 40 41 42 43 44 47 48 49 56 69
-LBRACE (286) 18 19 20 21
-RBRACE (287) 18 19 20 21
-ID (288) 49 70
-BOOLCONSTANT (289) 77
-INTCONSTANT (290) 76
-STRINGCONSTANT (291) 47 75
-CHARCONSTANT (292) 78
+IF (258) 34 35
+ELSE (259) 34
+FOR (260) 37 38 39 40 41 42 43 44
+WHILE (261) 36
+LPAREN (262) 12 13 34 35 36 37 38 39 40 41 42 43 44 47 48 49 56 69
+RPAREN (263) 12 13 34 35 36 37 38 39 40 41 42 43 44 47 48 49 56 69
+LBRACE (264) 18 19 20 21
+RBRACE (265) 18 19 20 21
+INT (266) 8
+CHAR (267) 11
+STRING (268) 10
+BOOL (269) 9
+ADD (270) 57
+BOOLCONST (271) 77
+INTCONST (272) 76
+STRINGCONST (273) 47 75
+CHARCONST (274) 78
+SUB (275) 58 62
+MULT (276) 59
+DIV (277) 60
+MOD (278) 61
+LESSTHAN (279) 63
+GREATERTHAN (280) 65
+LEQ (281) 64
+GEQ (282) 66
+EQUALS (283) 67
+NOTEQUALS (284) 68
+EQUAL (285) 52
+SEMICOLON (286) 6 27 28 37 38 39 40 41 42 43 44 45 46 47 48 49
+COMMA (287) 17 47 50 74
+RETURN (288) 45 46
+PRINTF (289) 47 48 49
+VOID (290) 13
+ID (291) 49 70
+NEWLINE (292)
 NOELSE (293)
 
 
@@ -159,7 +159,7 @@ $accept (39)
     on left: 0
 Program (40)
     on left: 1, on right: 0
-DeclPrime (41)
+Declare (41)
     on left: 2 3, on right: 1 2
 Decl (42)
     on left: 4 5, on right: 2 3
@@ -223,7 +223,7 @@ state 0
     VOID    shift, and go to state 5
 
     Program       go to state 6
-    DeclPrime     go to state 7
+    Declare       go to state 7
     Decl          go to state 8
     VariableDecl  go to state 9
     Variable      go to state 10
@@ -261,7 +261,7 @@ state 4
 
 state 5
 
-   13 FunctionDecl: VOID . Identifier LPAR OptionalFormals RPAR StmtBlock
+   13 FunctionDecl: VOID . Identifier LPAREN OptionalFormals RPAREN StmtBlock
 
     ID  shift, and go to state 13
 
@@ -277,8 +277,8 @@ state 6
 
 state 7
 
-    1 Program: DeclPrime .
-    2 DeclPrime: DeclPrime . Decl
+    1 Program: Declare .
+    2 Declare: Declare . Decl
 
     INT     shift, and go to state 1
     CHAR    shift, and go to state 2
@@ -297,9 +297,9 @@ state 7
 
 state 8
 
-    3 DeclPrime: Decl .
+    3 Declare: Decl .
 
-    $default  reduce using rule 3 (DeclPrime)
+    $default  reduce using rule 3 (Declare)
 
 
 state 9
@@ -319,7 +319,7 @@ state 10
 state 11
 
     7 Variable: Type . Identifier
-   12 FunctionDecl: Type . Identifier LPAR OptionalFormals RPAR StmtBlock
+   12 FunctionDecl: Type . Identifier LPAREN OptionalFormals RPAREN StmtBlock
 
     ID  shift, and go to state 13
 
@@ -342,9 +342,9 @@ state 13
 
 state 14
 
-   13 FunctionDecl: VOID Identifier . LPAR OptionalFormals RPAR StmtBlock
+   13 FunctionDecl: VOID Identifier . LPAREN OptionalFormals RPAREN StmtBlock
 
-    LPAR  shift, and go to state 19
+    LPAREN  shift, and go to state 19
 
 
 state 15
@@ -356,9 +356,9 @@ state 15
 
 state 16
 
-    2 DeclPrime: DeclPrime Decl .
+    2 Declare: Declare Decl .
 
-    $default  reduce using rule 2 (DeclPrime)
+    $default  reduce using rule 2 (Declare)
 
 
 state 17
@@ -371,16 +371,16 @@ state 17
 state 18
 
     7 Variable: Type Identifier .
-   12 FunctionDecl: Type Identifier . LPAR OptionalFormals RPAR StmtBlock
+   12 FunctionDecl: Type Identifier . LPAREN OptionalFormals RPAREN StmtBlock
 
-    LPAR  shift, and go to state 20
+    LPAREN  shift, and go to state 20
 
     $default  reduce using rule 7 (Variable)
 
 
 state 19
 
-   13 FunctionDecl: VOID Identifier LPAR . OptionalFormals RPAR StmtBlock
+   13 FunctionDecl: VOID Identifier LPAREN . OptionalFormals RPAREN StmtBlock
 
     INT     shift, and go to state 1
     CHAR    shift, and go to state 2
@@ -397,7 +397,7 @@ state 19
 
 state 20
 
-   12 FunctionDecl: Type Identifier LPAR . OptionalFormals RPAR StmtBlock
+   12 FunctionDecl: Type Identifier LPAREN . OptionalFormals RPAREN StmtBlock
 
     INT     shift, and go to state 1
     CHAR    shift, and go to state 2
@@ -430,9 +430,9 @@ state 22
 
 state 23
 
-   13 FunctionDecl: VOID Identifier LPAR OptionalFormals . RPAR StmtBlock
+   13 FunctionDecl: VOID Identifier LPAREN OptionalFormals . RPAREN StmtBlock
 
-    RPAR  shift, and go to state 27
+    RPAREN  shift, and go to state 27
 
 
 state 24
@@ -447,9 +447,9 @@ state 24
 
 state 25
 
-   12 FunctionDecl: Type Identifier LPAR OptionalFormals . RPAR StmtBlock
+   12 FunctionDecl: Type Identifier LPAREN OptionalFormals . RPAREN StmtBlock
 
-    RPAR  shift, and go to state 29
+    RPAREN  shift, and go to state 29
 
 
 state 26
@@ -461,7 +461,7 @@ state 26
 
 state 27
 
-   13 FunctionDecl: VOID Identifier LPAR OptionalFormals RPAR . StmtBlock
+   13 FunctionDecl: VOID Identifier LPAREN OptionalFormals RPAREN . StmtBlock
 
     LBRACE  shift, and go to state 30
 
@@ -483,7 +483,7 @@ state 28
 
 state 29
 
-   12 FunctionDecl: Type Identifier LPAR OptionalFormals RPAR . StmtBlock
+   12 FunctionDecl: Type Identifier LPAREN OptionalFormals RPAREN . StmtBlock
 
     LBRACE  shift, and go to state 30
 
@@ -497,25 +497,25 @@ state 30
    20          | LBRACE . VarDeclPrime RBRACE
    21          | LBRACE . RBRACE
 
-    INT             shift, and go to state 1
-    CHAR            shift, and go to state 2
-    STRING          shift, and go to state 3
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    BOOL            shift, and go to state 4
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    RBRACE          shift, and go to state 42
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    RBRACE       shift, and go to state 38
+    INT          shift, and go to state 1
+    CHAR         shift, and go to state 2
+    STRING       shift, and go to state 3
+    BOOL         shift, and go to state 4
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     VariableDecl  go to state 47
     Variable      go to state 10
@@ -537,7 +537,7 @@ state 30
 
 state 31
 
-   13 FunctionDecl: VOID Identifier LPAR OptionalFormals RPAR StmtBlock .
+   13 FunctionDecl: VOID Identifier LPAREN OptionalFormals RPAREN StmtBlock .
 
     $default  reduce using rule 13 (FunctionDecl)
 
@@ -551,57 +551,51 @@ state 32
 
 state 33
 
-   12 FunctionDecl: Type Identifier LPAR OptionalFormals RPAR StmtBlock .
+   12 FunctionDecl: Type Identifier LPAREN OptionalFormals RPAREN StmtBlock .
 
     $default  reduce using rule 12 (FunctionDecl)
 
 
 state 34
 
-   62 Expr: SUB . Expr
+   34 IfStmt: IF . LPAREN Expr RPAREN Stmt ELSE Stmt
+   35       | IF . LPAREN Expr RPAREN Stmt
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
-
-    Expr        go to state 61
-    Call        go to state 58
-    Identifier  go to state 59
-    Constant    go to state 60
+    LPAREN  shift, and go to state 61
 
 
 state 35
 
-   27 Stmt: SEMICOLON .
+   37 ForStmt: FOR . LPAREN SEMICOLON Expr SEMICOLON RPAREN Stmt
+   38        | FOR . LPAREN Expr SEMICOLON Expr SEMICOLON RPAREN Stmt
+   39        | FOR . LPAREN SEMICOLON Expr SEMICOLON Expr RPAREN Stmt
+   40        | FOR . LPAREN Expr SEMICOLON Expr SEMICOLON Expr RPAREN Stmt
+   41        | FOR . LPAREN Expr SEMICOLON SEMICOLON RPAREN Stmt
+   42        | FOR . LPAREN SEMICOLON SEMICOLON Expr RPAREN Stmt
+   43        | FOR . LPAREN SEMICOLON SEMICOLON RPAREN Stmt
+   44        | FOR . LPAREN Expr SEMICOLON SEMICOLON Expr RPAREN Stmt
 
-    $default  reduce using rule 27 (Stmt)
+    LPAREN  shift, and go to state 62
 
 
 state 36
 
-   34 IfStmt: IF . LPAR Expr RPAR Stmt ELSE Stmt
-   35       | IF . LPAR Expr RPAR Stmt
+   36 WhileStmt: WHILE . LPAREN Expr RPAREN Stmt
 
-    LPAR  shift, and go to state 62
+    LPAREN  shift, and go to state 63
 
 
 state 37
 
-   45 ReturnStmt: RETURN . SEMICOLON
-   46           | RETURN . Expr SEMICOLON
+   56 Expr: LPAREN . Expr RPAREN
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 63
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 64
     Call        go to state 58
@@ -611,85 +605,91 @@ state 37
 
 state 38
 
-   37 ForStmt: FOR . LPAR SEMICOLON Expr SEMICOLON RPAR Stmt
-   38        | FOR . LPAR Expr SEMICOLON Expr SEMICOLON RPAR Stmt
-   39        | FOR . LPAR SEMICOLON Expr SEMICOLON Expr RPAR Stmt
-   40        | FOR . LPAR Expr SEMICOLON Expr SEMICOLON Expr RPAR Stmt
-   41        | FOR . LPAR Expr SEMICOLON SEMICOLON RPAR Stmt
-   42        | FOR . LPAR SEMICOLON SEMICOLON Expr RPAR Stmt
-   43        | FOR . LPAR SEMICOLON SEMICOLON RPAR Stmt
-   44        | FOR . LPAR Expr SEMICOLON SEMICOLON Expr RPAR Stmt
-
-    LPAR  shift, and go to state 65
-
-
-state 39
-
-   36 WhileStmt: WHILE . LPAR Expr RPAR Stmt
-
-    LPAR  shift, and go to state 66
-
-
-state 40
-
-   47 PrintStmt: PRINTF . LPAR STRINGCONSTANT COMMA ExprList RPAR SEMICOLON
-   48          | PRINTF . LPAR Constant RPAR SEMICOLON
-   49          | PRINTF . LPAR ID RPAR SEMICOLON
-
-    LPAR  shift, and go to state 67
-
-
-state 41
-
-   56 Expr: LPAR . Expr RPAR
-
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
-
-    Expr        go to state 68
-    Call        go to state 58
-    Identifier  go to state 59
-    Constant    go to state 60
-
-
-state 42
-
    21 StmtBlock: LBRACE RBRACE .
 
     $default  reduce using rule 21 (StmtBlock)
 
 
-state 43
+state 39
 
-   77 Constant: BOOLCONSTANT .
+   77 Constant: BOOLCONST .
 
     $default  reduce using rule 77 (Constant)
 
 
-state 44
+state 40
 
-   76 Constant: INTCONSTANT .
+   76 Constant: INTCONST .
 
     $default  reduce using rule 76 (Constant)
 
 
-state 45
+state 41
 
-   75 Constant: STRINGCONSTANT .
+   75 Constant: STRINGCONST .
 
     $default  reduce using rule 75 (Constant)
 
 
-state 46
+state 42
 
-   78 Constant: CHARCONSTANT .
+   78 Constant: CHARCONST .
 
     $default  reduce using rule 78 (Constant)
+
+
+state 43
+
+   62 Expr: SUB . Expr
+
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
+
+    Expr        go to state 65
+    Call        go to state 58
+    Identifier  go to state 59
+    Constant    go to state 60
+
+
+state 44
+
+   27 Stmt: SEMICOLON .
+
+    $default  reduce using rule 27 (Stmt)
+
+
+state 45
+
+   45 ReturnStmt: RETURN . SEMICOLON
+   46           | RETURN . Expr SEMICOLON
+
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 66
+    ID           shift, and go to state 13
+
+    Expr        go to state 67
+    Call        go to state 58
+    Identifier  go to state 59
+    Constant    go to state 60
+
+
+state 46
+
+   47 PrintStmt: PRINTF . LPAREN STRINGCONST COMMA ExprList RPAREN SEMICOLON
+   48          | PRINTF . LPAREN Constant RPAREN SEMICOLON
+   49          | PRINTF . LPAREN ID RPAREN SEMICOLON
+
+    LPAREN  shift, and go to state 68
 
 
 state 47
@@ -712,25 +712,25 @@ state 49
    20          | LBRACE VarDeclPrime . RBRACE
    22 VarDeclPrime: VarDeclPrime . VariableDecl
 
-    INT             shift, and go to state 1
-    CHAR            shift, and go to state 2
-    STRING          shift, and go to state 3
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    BOOL            shift, and go to state 4
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    RBRACE          shift, and go to state 69
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    RBRACE       shift, and go to state 69
+    INT          shift, and go to state 1
+    CHAR         shift, and go to state 2
+    STRING       shift, and go to state 3
+    BOOL         shift, and go to state 4
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     VariableDecl  go to state 70
     Variable      go to state 10
@@ -754,21 +754,21 @@ state 50
    19 StmtBlock: LBRACE StmtList . RBRACE
    24 StmtList: StmtList . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    RBRACE          shift, and go to state 72
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    RBRACE       shift, and go to state 72
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 73
@@ -833,25 +833,25 @@ state 57
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    SEMICOLON  shift, and go to state 85
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
+    SEMICOLON    shift, and go to state 85
 
 
 state 58
@@ -865,10 +865,10 @@ state 59
 
    52 Expr: Identifier . EQUAL Expr
    54     | Identifier .
-   69 Call: Identifier . LPAR OptionalExprList RPAR
+   69 Call: Identifier . LPAREN OptionalExprList RPAREN
 
-    EQUAL  shift, and go to state 86
-    LPAR   shift, and go to state 87
+    LPAREN  shift, and go to state 86
+    EQUAL   shift, and go to state 87
 
     $default  reduce using rule 54 (Expr)
 
@@ -882,41 +882,16 @@ state 60
 
 state 61
 
-   57 Expr: Expr . ADD Expr
-   58     | Expr . SUB Expr
-   59     | Expr . MULT Expr
-   60     | Expr . DIV Expr
-   61     | Expr . MOD Expr
-   62     | SUB Expr .
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
-   67     | Expr . EQUALS Expr
-   68     | Expr . NOTEQUALS Expr
+   34 IfStmt: IF LPAREN . Expr RPAREN Stmt ELSE Stmt
+   35       | IF LPAREN . Expr RPAREN Stmt
 
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-
-    $default  reduce using rule 62 (Expr)
-
-
-state 62
-
-   34 IfStmt: IF LPAR . Expr RPAR Stmt ELSE Stmt
-   35       | IF LPAR . Expr RPAR Stmt
-
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 88
     Call        go to state 58
@@ -924,61 +899,43 @@ state 62
     Constant    go to state 60
 
 
+state 62
+
+   37 ForStmt: FOR LPAREN . SEMICOLON Expr SEMICOLON RPAREN Stmt
+   38        | FOR LPAREN . Expr SEMICOLON Expr SEMICOLON RPAREN Stmt
+   39        | FOR LPAREN . SEMICOLON Expr SEMICOLON Expr RPAREN Stmt
+   40        | FOR LPAREN . Expr SEMICOLON Expr SEMICOLON Expr RPAREN Stmt
+   41        | FOR LPAREN . Expr SEMICOLON SEMICOLON RPAREN Stmt
+   42        | FOR LPAREN . SEMICOLON SEMICOLON Expr RPAREN Stmt
+   43        | FOR LPAREN . SEMICOLON SEMICOLON RPAREN Stmt
+   44        | FOR LPAREN . Expr SEMICOLON SEMICOLON Expr RPAREN Stmt
+
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 89
+    ID           shift, and go to state 13
+
+    Expr        go to state 90
+    Call        go to state 58
+    Identifier  go to state 59
+    Constant    go to state 60
+
+
 state 63
 
-   45 ReturnStmt: RETURN SEMICOLON .
+   36 WhileStmt: WHILE LPAREN . Expr RPAREN Stmt
 
-    $default  reduce using rule 45 (ReturnStmt)
-
-
-state 64
-
-   46 ReturnStmt: RETURN Expr . SEMICOLON
-   57 Expr: Expr . ADD Expr
-   58     | Expr . SUB Expr
-   59     | Expr . MULT Expr
-   60     | Expr . DIV Expr
-   61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
-   67     | Expr . EQUALS Expr
-   68     | Expr . NOTEQUALS Expr
-
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    SEMICOLON  shift, and go to state 89
-
-
-state 65
-
-   37 ForStmt: FOR LPAR . SEMICOLON Expr SEMICOLON RPAR Stmt
-   38        | FOR LPAR . Expr SEMICOLON Expr SEMICOLON RPAR Stmt
-   39        | FOR LPAR . SEMICOLON Expr SEMICOLON Expr RPAR Stmt
-   40        | FOR LPAR . Expr SEMICOLON Expr SEMICOLON Expr RPAR Stmt
-   41        | FOR LPAR . Expr SEMICOLON SEMICOLON RPAR Stmt
-   42        | FOR LPAR . SEMICOLON SEMICOLON Expr RPAR Stmt
-   43        | FOR LPAR . SEMICOLON SEMICOLON RPAR Stmt
-   44        | FOR LPAR . Expr SEMICOLON SEMICOLON Expr RPAR Stmt
-
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 90
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 91
     Call        go to state 58
@@ -986,66 +943,109 @@ state 65
     Constant    go to state 60
 
 
-state 66
+state 64
 
-   36 WhileStmt: WHILE LPAR . Expr RPAR Stmt
-
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
-
-    Expr        go to state 92
-    Call        go to state 58
-    Identifier  go to state 59
-    Constant    go to state 60
-
-
-state 67
-
-   47 PrintStmt: PRINTF LPAR . STRINGCONSTANT COMMA ExprList RPAR SEMICOLON
-   48          | PRINTF LPAR . Constant RPAR SEMICOLON
-   49          | PRINTF LPAR . ID RPAR SEMICOLON
-
-    ID              shift, and go to state 93
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 94
-    CHARCONSTANT    shift, and go to state 46
-
-    Constant  go to state 95
-
-
-state 68
-
-   56 Expr: LPAR Expr . RPAR
+   56 Expr: LPAREN Expr . RPAREN
    57     | Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    RPAR       shift, and go to state 96
+    RPAREN       shift, and go to state 92
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
+
+
+state 65
+
+   57 Expr: Expr . ADD Expr
+   58     | Expr . SUB Expr
+   59     | Expr . MULT Expr
+   60     | Expr . DIV Expr
+   61     | Expr . MOD Expr
+   62     | SUB Expr .
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
+   67     | Expr . EQUALS Expr
+   68     | Expr . NOTEQUALS Expr
+
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
+
+    $default  reduce using rule 62 (Expr)
+
+
+state 66
+
+   45 ReturnStmt: RETURN SEMICOLON .
+
+    $default  reduce using rule 45 (ReturnStmt)
+
+
+state 67
+
+   46 ReturnStmt: RETURN Expr . SEMICOLON
+   57 Expr: Expr . ADD Expr
+   58     | Expr . SUB Expr
+   59     | Expr . MULT Expr
+   60     | Expr . DIV Expr
+   61     | Expr . MOD Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
+   67     | Expr . EQUALS Expr
+   68     | Expr . NOTEQUALS Expr
+
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
+    SEMICOLON    shift, and go to state 93
+
+
+state 68
+
+   47 PrintStmt: PRINTF LPAREN . STRINGCONST COMMA ExprList RPAREN SEMICOLON
+   48          | PRINTF LPAREN . Constant RPAREN SEMICOLON
+   49          | PRINTF LPAREN . ID RPAREN SEMICOLON
+
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 94
+    CHARCONST    shift, and go to state 42
+    ID           shift, and go to state 95
+
+    Constant  go to state 96
 
 
 state 69
@@ -1067,21 +1067,21 @@ state 71
    18 StmtBlock: LBRACE VarDeclPrime StmtList . RBRACE
    24 StmtList: StmtList . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    RBRACE          shift, and go to state 97
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    RBRACE       shift, and go to state 97
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 73
@@ -1114,13 +1114,13 @@ state 74
 
    57 Expr: Expr ADD . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 98
     Call        go to state 58
@@ -1132,13 +1132,13 @@ state 75
 
    58 Expr: Expr SUB . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 99
     Call        go to state 58
@@ -1150,13 +1150,13 @@ state 76
 
    59 Expr: Expr MULT . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 100
     Call        go to state 58
@@ -1168,13 +1168,13 @@ state 77
 
    60 Expr: Expr DIV . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 101
     Call        go to state 58
@@ -1186,13 +1186,13 @@ state 78
 
    61 Expr: Expr MOD . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 102
     Call        go to state 58
@@ -1202,15 +1202,15 @@ state 78
 
 state 79
 
-   63 Expr: Expr LESSTH . Expr
+   63 Expr: Expr LESSTHAN . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 103
     Call        go to state 58
@@ -1220,15 +1220,15 @@ state 79
 
 state 80
 
-   65 Expr: Expr GREATTH . Expr
+   65 Expr: Expr GREATERTHAN . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 104
     Call        go to state 58
@@ -1238,15 +1238,15 @@ state 80
 
 state 81
 
-   64 Expr: Expr LESSTHEQ . Expr
+   64 Expr: Expr LEQ . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 105
     Call        go to state 58
@@ -1256,15 +1256,15 @@ state 81
 
 state 82
 
-   66 Expr: Expr GREATTHEQ . Expr
+   66 Expr: Expr GEQ . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 106
     Call        go to state 58
@@ -1276,13 +1276,13 @@ state 83
 
    67 Expr: Expr EQUALS . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 107
     Call        go to state 58
@@ -1294,13 +1294,13 @@ state 84
 
    68 Expr: Expr NOTEQUALS . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 108
     Call        go to state 58
@@ -1317,96 +1317,89 @@ state 85
 
 state 86
 
+   69 Call: Identifier LPAREN . OptionalExprList RPAREN
+
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
+
+    $default  reduce using rule 72 (OptionalExprList)
+
+    Expr              go to state 109
+    Call              go to state 58
+    Identifier        go to state 59
+    OptionalExprList  go to state 110
+    Actuals           go to state 111
+    Constant          go to state 60
+
+
+state 87
+
    52 Expr: Identifier EQUAL . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
-    Expr        go to state 109
+    Expr        go to state 112
     Call        go to state 58
     Identifier  go to state 59
     Constant    go to state 60
 
 
-state 87
-
-   69 Call: Identifier LPAR . OptionalExprList RPAR
-
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
-
-    $default  reduce using rule 72 (OptionalExprList)
-
-    Expr              go to state 110
-    Call              go to state 58
-    Identifier        go to state 59
-    OptionalExprList  go to state 111
-    Actuals           go to state 112
-    Constant          go to state 60
-
-
 state 88
 
-   34 IfStmt: IF LPAR Expr . RPAR Stmt ELSE Stmt
-   35       | IF LPAR Expr . RPAR Stmt
+   34 IfStmt: IF LPAREN Expr . RPAREN Stmt ELSE Stmt
+   35       | IF LPAREN Expr . RPAREN Stmt
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    RPAR       shift, and go to state 113
+    RPAREN       shift, and go to state 113
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
 
 state 89
 
-   46 ReturnStmt: RETURN Expr SEMICOLON .
+   37 ForStmt: FOR LPAREN SEMICOLON . Expr SEMICOLON RPAREN Stmt
+   39        | FOR LPAREN SEMICOLON . Expr SEMICOLON Expr RPAREN Stmt
+   42        | FOR LPAREN SEMICOLON . SEMICOLON Expr RPAREN Stmt
+   43        | FOR LPAREN SEMICOLON . SEMICOLON RPAREN Stmt
 
-    $default  reduce using rule 46 (ReturnStmt)
-
-
-state 90
-
-   37 ForStmt: FOR LPAR SEMICOLON . Expr SEMICOLON RPAR Stmt
-   39        | FOR LPAR SEMICOLON . Expr SEMICOLON Expr RPAR Stmt
-   42        | FOR LPAR SEMICOLON . SEMICOLON Expr RPAR Stmt
-   43        | FOR LPAR SEMICOLON . SEMICOLON RPAR Stmt
-
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 114
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 114
+    ID           shift, and go to state 13
 
     Expr        go to state 115
     Call        go to state 58
@@ -1414,96 +1407,103 @@ state 90
     Constant    go to state 60
 
 
-state 91
+state 90
 
-   38 ForStmt: FOR LPAR Expr . SEMICOLON Expr SEMICOLON RPAR Stmt
-   40        | FOR LPAR Expr . SEMICOLON Expr SEMICOLON Expr RPAR Stmt
-   41        | FOR LPAR Expr . SEMICOLON SEMICOLON RPAR Stmt
-   44        | FOR LPAR Expr . SEMICOLON SEMICOLON Expr RPAR Stmt
+   38 ForStmt: FOR LPAREN Expr . SEMICOLON Expr SEMICOLON RPAREN Stmt
+   40        | FOR LPAREN Expr . SEMICOLON Expr SEMICOLON Expr RPAREN Stmt
+   41        | FOR LPAREN Expr . SEMICOLON SEMICOLON RPAREN Stmt
+   44        | FOR LPAREN Expr . SEMICOLON SEMICOLON Expr RPAREN Stmt
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    SEMICOLON  shift, and go to state 116
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
+    SEMICOLON    shift, and go to state 116
+
+
+state 91
+
+   36 WhileStmt: WHILE LPAREN Expr . RPAREN Stmt
+   57 Expr: Expr . ADD Expr
+   58     | Expr . SUB Expr
+   59     | Expr . MULT Expr
+   60     | Expr . DIV Expr
+   61     | Expr . MOD Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
+   67     | Expr . EQUALS Expr
+   68     | Expr . NOTEQUALS Expr
+
+    RPAREN       shift, and go to state 117
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
 
 state 92
 
-   36 WhileStmt: WHILE LPAR Expr . RPAR Stmt
-   57 Expr: Expr . ADD Expr
-   58     | Expr . SUB Expr
-   59     | Expr . MULT Expr
-   60     | Expr . DIV Expr
-   61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
-   67     | Expr . EQUALS Expr
-   68     | Expr . NOTEQUALS Expr
+   56 Expr: LPAREN Expr RPAREN .
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    RPAR       shift, and go to state 117
+    $default  reduce using rule 56 (Expr)
 
 
 state 93
 
-   49 PrintStmt: PRINTF LPAR ID . RPAR SEMICOLON
+   46 ReturnStmt: RETURN Expr SEMICOLON .
 
-    RPAR  shift, and go to state 118
+    $default  reduce using rule 46 (ReturnStmt)
 
 
 state 94
 
-   47 PrintStmt: PRINTF LPAR STRINGCONSTANT . COMMA ExprList RPAR SEMICOLON
-   75 Constant: STRINGCONSTANT .
+   47 PrintStmt: PRINTF LPAREN STRINGCONST . COMMA ExprList RPAREN SEMICOLON
+   75 Constant: STRINGCONST .
 
-    COMMA  shift, and go to state 119
+    COMMA  shift, and go to state 118
 
     $default  reduce using rule 75 (Constant)
 
 
 state 95
 
-   48 PrintStmt: PRINTF LPAR Constant . RPAR SEMICOLON
+   49 PrintStmt: PRINTF LPAREN ID . RPAREN SEMICOLON
 
-    RPAR  shift, and go to state 120
+    RPAREN  shift, and go to state 119
 
 
 state 96
 
-   56 Expr: LPAR Expr RPAR .
+   48 PrintStmt: PRINTF LPAREN Constant . RPAREN SEMICOLON
 
-    $default  reduce using rule 56 (Expr)
+    RPAREN  shift, and go to state 120
 
 
 state 97
@@ -1521,19 +1521,19 @@ state 98
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 57 (Expr)
 
@@ -1546,19 +1546,19 @@ state 99
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 58 (Expr)
 
@@ -1571,19 +1571,19 @@ state 100
    59     | Expr MULT Expr .
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 59 (Expr)
 
@@ -1596,19 +1596,19 @@ state 101
    60     | Expr . DIV Expr
    60     | Expr DIV Expr .
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 60 (Expr)
 
@@ -1621,19 +1621,19 @@ state 102
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
    61     | Expr MOD Expr .
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 61 (Expr)
 
@@ -1645,11 +1645,11 @@ state 103
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   63     | Expr LESSTH Expr .
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   63     | Expr LESSTHAN Expr .
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
@@ -1663,11 +1663,11 @@ state 104
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   65     | Expr GREATTH Expr .
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   65     | Expr GREATERTHAN Expr .
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
@@ -1681,11 +1681,11 @@ state 105
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   64     | Expr LESSTHEQ Expr .
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   64     | Expr LEQ Expr .
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
@@ -1699,11 +1699,11 @@ state 106
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
-   66     | Expr GREATTHEQ Expr .
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
+   66     | Expr GEQ Expr .
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
@@ -1717,10 +1717,10 @@ state 107
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    67     | Expr EQUALS Expr .
    68     | Expr . NOTEQUALS Expr
@@ -1735,10 +1735,10 @@ state 108
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
    68     | Expr NOTEQUALS Expr .
@@ -1748,60 +1748,42 @@ state 108
 
 state 109
 
-   52 Expr: Identifier EQUAL Expr .
-   57     | Expr . ADD Expr
-   58     | Expr . SUB Expr
-   59     | Expr . MULT Expr
-   60     | Expr . DIV Expr
-   61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
-   67     | Expr . EQUALS Expr
-   68     | Expr . NOTEQUALS Expr
-
-    $default  reduce using rule 52 (Expr)
-
-
-state 110
-
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
    73 Actuals: Expr .
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 73 (Actuals)
 
 
+state 110
+
+   69 Call: Identifier LPAREN OptionalExprList . RPAREN
+
+    RPAREN  shift, and go to state 121
+
+
 state 111
-
-   69 Call: Identifier LPAR OptionalExprList . RPAR
-
-    RPAR  shift, and go to state 121
-
-
-state 112
 
    71 OptionalExprList: Actuals .
    74 Actuals: Actuals . COMMA Expr
@@ -1811,25 +1793,43 @@ state 112
     $default  reduce using rule 71 (OptionalExprList)
 
 
+state 112
+
+   52 Expr: Identifier EQUAL Expr .
+   57     | Expr . ADD Expr
+   58     | Expr . SUB Expr
+   59     | Expr . MULT Expr
+   60     | Expr . DIV Expr
+   61     | Expr . MOD Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
+   67     | Expr . EQUALS Expr
+   68     | Expr . NOTEQUALS Expr
+
+    $default  reduce using rule 52 (Expr)
+
+
 state 113
 
-   34 IfStmt: IF LPAR Expr RPAR . Stmt ELSE Stmt
-   35       | IF LPAR Expr RPAR . Stmt
+   34 IfStmt: IF LPAREN Expr RPAREN . Stmt ELSE Stmt
+   35       | IF LPAREN Expr RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 123
@@ -1846,17 +1846,17 @@ state 113
 
 state 114
 
-   42 ForStmt: FOR LPAR SEMICOLON SEMICOLON . Expr RPAR Stmt
-   43        | FOR LPAR SEMICOLON SEMICOLON . RPAR Stmt
+   42 ForStmt: FOR LPAREN SEMICOLON SEMICOLON . Expr RPAREN Stmt
+   43        | FOR LPAREN SEMICOLON SEMICOLON . RPAREN Stmt
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    RPAR            shift, and go to state 124
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    RPAREN       shift, and go to state 124
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 125
     Call        go to state 58
@@ -1866,49 +1866,49 @@ state 114
 
 state 115
 
-   37 ForStmt: FOR LPAR SEMICOLON Expr . SEMICOLON RPAR Stmt
-   39        | FOR LPAR SEMICOLON Expr . SEMICOLON Expr RPAR Stmt
+   37 ForStmt: FOR LPAREN SEMICOLON Expr . SEMICOLON RPAREN Stmt
+   39        | FOR LPAREN SEMICOLON Expr . SEMICOLON Expr RPAREN Stmt
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    SEMICOLON  shift, and go to state 126
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
+    SEMICOLON    shift, and go to state 126
 
 
 state 116
 
-   38 ForStmt: FOR LPAR Expr SEMICOLON . Expr SEMICOLON RPAR Stmt
-   40        | FOR LPAR Expr SEMICOLON . Expr SEMICOLON Expr RPAR Stmt
-   41        | FOR LPAR Expr SEMICOLON . SEMICOLON RPAR Stmt
-   44        | FOR LPAR Expr SEMICOLON . SEMICOLON Expr RPAR Stmt
+   38 ForStmt: FOR LPAREN Expr SEMICOLON . Expr SEMICOLON RPAREN Stmt
+   40        | FOR LPAREN Expr SEMICOLON . Expr SEMICOLON Expr RPAREN Stmt
+   41        | FOR LPAREN Expr SEMICOLON . SEMICOLON RPAREN Stmt
+   44        | FOR LPAREN Expr SEMICOLON . SEMICOLON Expr RPAREN Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 127
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 127
+    ID           shift, and go to state 13
 
     Expr        go to state 128
     Call        go to state 58
@@ -1918,22 +1918,22 @@ state 116
 
 state 117
 
-   36 WhileStmt: WHILE LPAR Expr RPAR . Stmt
+   36 WhileStmt: WHILE LPAREN Expr RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 129
@@ -1950,40 +1950,40 @@ state 117
 
 state 118
 
-   49 PrintStmt: PRINTF LPAR ID RPAR . SEMICOLON
+   47 PrintStmt: PRINTF LPAREN STRINGCONST COMMA . ExprList RPAREN SEMICOLON
 
-    SEMICOLON  shift, and go to state 130
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
-
-state 119
-
-   47 PrintStmt: PRINTF LPAR STRINGCONSTANT COMMA . ExprList RPAR SEMICOLON
-
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
-
-    ExprList    go to state 131
-    Expr        go to state 132
+    ExprList    go to state 130
+    Expr        go to state 131
     Call        go to state 58
     Identifier  go to state 59
     Constant    go to state 60
 
 
+state 119
+
+   49 PrintStmt: PRINTF LPAREN ID RPAREN . SEMICOLON
+
+    SEMICOLON  shift, and go to state 132
+
+
 state 120
 
-   48 PrintStmt: PRINTF LPAR Constant RPAR . SEMICOLON
+   48 PrintStmt: PRINTF LPAREN Constant RPAREN . SEMICOLON
 
     SEMICOLON  shift, and go to state 133
 
 
 state 121
 
-   69 Call: Identifier LPAR OptionalExprList RPAR .
+   69 Call: Identifier LPAREN OptionalExprList RPAREN .
 
     $default  reduce using rule 69 (Call)
 
@@ -1992,13 +1992,13 @@ state 122
 
    74 Actuals: Actuals COMMA . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 134
     Call        go to state 58
@@ -2008,30 +2008,30 @@ state 122
 
 state 123
 
-   34 IfStmt: IF LPAR Expr RPAR Stmt . ELSE Stmt
-   35       | IF LPAR Expr RPAR Stmt .
+   34 IfStmt: IF LPAREN Expr RPAREN Stmt . ELSE Stmt
+   35       | IF LPAREN Expr RPAREN Stmt .
 
     $default  reduce using rule 35 (IfStmt)
 
 
 state 124
 
-   43 ForStmt: FOR LPAR SEMICOLON SEMICOLON RPAR . Stmt
+   43 ForStmt: FOR LPAREN SEMICOLON SEMICOLON RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 136
@@ -2048,46 +2048,46 @@ state 124
 
 state 125
 
-   42 ForStmt: FOR LPAR SEMICOLON SEMICOLON Expr . RPAR Stmt
+   42 ForStmt: FOR LPAREN SEMICOLON SEMICOLON Expr . RPAREN Stmt
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    RPAR       shift, and go to state 137
+    RPAREN       shift, and go to state 137
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
 
 state 126
 
-   37 ForStmt: FOR LPAR SEMICOLON Expr SEMICOLON . RPAR Stmt
-   39        | FOR LPAR SEMICOLON Expr SEMICOLON . Expr RPAR Stmt
+   37 ForStmt: FOR LPAREN SEMICOLON Expr SEMICOLON . RPAREN Stmt
+   39        | FOR LPAREN SEMICOLON Expr SEMICOLON . Expr RPAREN Stmt
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    RPAR            shift, and go to state 138
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    RPAREN       shift, and go to state 138
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 139
     Call        go to state 58
@@ -2097,17 +2097,17 @@ state 126
 
 state 127
 
-   41 ForStmt: FOR LPAR Expr SEMICOLON SEMICOLON . RPAR Stmt
-   44        | FOR LPAR Expr SEMICOLON SEMICOLON . Expr RPAR Stmt
+   41 ForStmt: FOR LPAREN Expr SEMICOLON SEMICOLON . RPAREN Stmt
+   44        | FOR LPAREN Expr SEMICOLON SEMICOLON . Expr RPAREN Stmt
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    RPAR            shift, and go to state 140
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    RPAREN       shift, and go to state 140
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 141
     Call        go to state 58
@@ -2117,58 +2117,51 @@ state 127
 
 state 128
 
-   38 ForStmt: FOR LPAR Expr SEMICOLON Expr . SEMICOLON RPAR Stmt
-   40        | FOR LPAR Expr SEMICOLON Expr . SEMICOLON Expr RPAR Stmt
+   38 ForStmt: FOR LPAREN Expr SEMICOLON Expr . SEMICOLON RPAREN Stmt
+   40        | FOR LPAREN Expr SEMICOLON Expr . SEMICOLON Expr RPAREN Stmt
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    SEMICOLON  shift, and go to state 142
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
+    SEMICOLON    shift, and go to state 142
 
 
 state 129
 
-   36 WhileStmt: WHILE LPAR Expr RPAR Stmt .
+   36 WhileStmt: WHILE LPAREN Expr RPAREN Stmt .
 
     $default  reduce using rule 36 (WhileStmt)
 
 
 state 130
 
-   49 PrintStmt: PRINTF LPAR ID RPAR SEMICOLON .
+   47 PrintStmt: PRINTF LPAREN STRINGCONST COMMA ExprList . RPAREN SEMICOLON
+   50 ExprList: ExprList . COMMA Expr
 
-    $default  reduce using rule 49 (PrintStmt)
+    RPAREN  shift, and go to state 143
+    COMMA   shift, and go to state 144
 
 
 state 131
-
-   47 PrintStmt: PRINTF LPAR STRINGCONSTANT COMMA ExprList . RPAR SEMICOLON
-   50 ExprList: ExprList . COMMA Expr
-
-    COMMA  shift, and go to state 143
-    RPAR   shift, and go to state 144
-
-
-state 132
 
    51 ExprList: Expr .
    57 Expr: Expr . ADD Expr
@@ -2176,31 +2169,38 @@ state 132
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 51 (ExprList)
 
 
+state 132
+
+   49 PrintStmt: PRINTF LPAREN ID RPAREN SEMICOLON .
+
+    $default  reduce using rule 49 (PrintStmt)
+
+
 state 133
 
-   48 PrintStmt: PRINTF LPAR Constant RPAR SEMICOLON .
+   48 PrintStmt: PRINTF LPAREN Constant RPAREN SEMICOLON .
 
     $default  reduce using rule 48 (PrintStmt)
 
@@ -2212,47 +2212,47 @@ state 134
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
    74 Actuals: Actuals COMMA Expr .
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 74 (Actuals)
 
 
 state 135
 
-   34 IfStmt: IF LPAR Expr RPAR Stmt ELSE . Stmt
+   34 IfStmt: IF LPAREN Expr RPAREN Stmt ELSE . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 145
@@ -2269,29 +2269,29 @@ state 135
 
 state 136
 
-   43 ForStmt: FOR LPAR SEMICOLON SEMICOLON RPAR Stmt .
+   43 ForStmt: FOR LPAREN SEMICOLON SEMICOLON RPAREN Stmt .
 
     $default  reduce using rule 43 (ForStmt)
 
 
 state 137
 
-   42 ForStmt: FOR LPAR SEMICOLON SEMICOLON Expr RPAR . Stmt
+   42 ForStmt: FOR LPAREN SEMICOLON SEMICOLON Expr RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 146
@@ -2308,22 +2308,22 @@ state 137
 
 state 138
 
-   37 ForStmt: FOR LPAR SEMICOLON Expr SEMICOLON RPAR . Stmt
+   37 ForStmt: FOR LPAREN SEMICOLON Expr SEMICOLON RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 147
@@ -2340,51 +2340,51 @@ state 138
 
 state 139
 
-   39 ForStmt: FOR LPAR SEMICOLON Expr SEMICOLON Expr . RPAR Stmt
+   39 ForStmt: FOR LPAREN SEMICOLON Expr SEMICOLON Expr . RPAREN Stmt
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    RPAR       shift, and go to state 148
+    RPAREN       shift, and go to state 148
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
 
 state 140
 
-   41 ForStmt: FOR LPAR Expr SEMICOLON SEMICOLON RPAR . Stmt
+   41 ForStmt: FOR LPAREN Expr SEMICOLON SEMICOLON RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 149
@@ -2401,46 +2401,46 @@ state 140
 
 state 141
 
-   44 ForStmt: FOR LPAR Expr SEMICOLON SEMICOLON Expr . RPAR Stmt
+   44 ForStmt: FOR LPAREN Expr SEMICOLON SEMICOLON Expr . RPAREN Stmt
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    RPAR       shift, and go to state 150
+    RPAREN       shift, and go to state 150
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
 
 state 142
 
-   38 ForStmt: FOR LPAR Expr SEMICOLON Expr SEMICOLON . RPAR Stmt
-   40        | FOR LPAR Expr SEMICOLON Expr SEMICOLON . Expr RPAR Stmt
+   38 ForStmt: FOR LPAREN Expr SEMICOLON Expr SEMICOLON . RPAREN Stmt
+   40        | FOR LPAREN Expr SEMICOLON Expr SEMICOLON . Expr RPAREN Stmt
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    RPAR            shift, and go to state 151
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    RPAREN       shift, and go to state 151
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
     Expr        go to state 152
     Call        go to state 58
@@ -2450,68 +2450,68 @@ state 142
 
 state 143
 
+   47 PrintStmt: PRINTF LPAREN STRINGCONST COMMA ExprList RPAREN . SEMICOLON
+
+    SEMICOLON  shift, and go to state 153
+
+
+state 144
+
    50 ExprList: ExprList COMMA . Expr
 
-    SUB             shift, and go to state 34
-    LPAR            shift, and go to state 41
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    LPAREN       shift, and go to state 37
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    ID           shift, and go to state 13
 
-    Expr        go to state 153
+    Expr        go to state 154
     Call        go to state 58
     Identifier  go to state 59
     Constant    go to state 60
 
 
-state 144
-
-   47 PrintStmt: PRINTF LPAR STRINGCONSTANT COMMA ExprList RPAR . SEMICOLON
-
-    SEMICOLON  shift, and go to state 154
-
-
 state 145
 
-   34 IfStmt: IF LPAR Expr RPAR Stmt ELSE Stmt .
+   34 IfStmt: IF LPAREN Expr RPAREN Stmt ELSE Stmt .
 
     $default  reduce using rule 34 (IfStmt)
 
 
 state 146
 
-   42 ForStmt: FOR LPAR SEMICOLON SEMICOLON Expr RPAR Stmt .
+   42 ForStmt: FOR LPAREN SEMICOLON SEMICOLON Expr RPAREN Stmt .
 
     $default  reduce using rule 42 (ForStmt)
 
 
 state 147
 
-   37 ForStmt: FOR LPAR SEMICOLON Expr SEMICOLON RPAR Stmt .
+   37 ForStmt: FOR LPAREN SEMICOLON Expr SEMICOLON RPAREN Stmt .
 
     $default  reduce using rule 37 (ForStmt)
 
 
 state 148
 
-   39 ForStmt: FOR LPAR SEMICOLON Expr SEMICOLON Expr RPAR . Stmt
+   39 ForStmt: FOR LPAREN SEMICOLON Expr SEMICOLON Expr RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 155
@@ -2528,29 +2528,29 @@ state 148
 
 state 149
 
-   41 ForStmt: FOR LPAR Expr SEMICOLON SEMICOLON RPAR Stmt .
+   41 ForStmt: FOR LPAREN Expr SEMICOLON SEMICOLON RPAREN Stmt .
 
     $default  reduce using rule 41 (ForStmt)
 
 
 state 150
 
-   44 ForStmt: FOR LPAR Expr SEMICOLON SEMICOLON Expr RPAR . Stmt
+   44 ForStmt: FOR LPAREN Expr SEMICOLON SEMICOLON Expr RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 156
@@ -2567,22 +2567,22 @@ state 150
 
 state 151
 
-   38 ForStmt: FOR LPAR Expr SEMICOLON Expr SEMICOLON RPAR . Stmt
+   38 ForStmt: FOR LPAREN Expr SEMICOLON Expr SEMICOLON RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 157
@@ -2599,34 +2599,41 @@ state 151
 
 state 152
 
-   40 ForStmt: FOR LPAR Expr SEMICOLON Expr SEMICOLON Expr . RPAR Stmt
+   40 ForStmt: FOR LPAREN Expr SEMICOLON Expr SEMICOLON Expr . RPAREN Stmt
    57 Expr: Expr . ADD Expr
    58     | Expr . SUB Expr
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
-    RPAR       shift, and go to state 158
+    RPAREN       shift, and go to state 158
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
 
 state 153
+
+   47 PrintStmt: PRINTF LPAREN STRINGCONST COMMA ExprList RPAREN SEMICOLON .
+
+    $default  reduce using rule 47 (PrintStmt)
+
+
+state 154
 
    50 ExprList: ExprList COMMA Expr .
    57 Expr: Expr . ADD Expr
@@ -2634,74 +2641,67 @@ state 153
    59     | Expr . MULT Expr
    60     | Expr . DIV Expr
    61     | Expr . MOD Expr
-   63     | Expr . LESSTH Expr
-   64     | Expr . LESSTHEQ Expr
-   65     | Expr . GREATTH Expr
-   66     | Expr . GREATTHEQ Expr
+   63     | Expr . LESSTHAN Expr
+   64     | Expr . LEQ Expr
+   65     | Expr . GREATERTHAN Expr
+   66     | Expr . GEQ Expr
    67     | Expr . EQUALS Expr
    68     | Expr . NOTEQUALS Expr
 
-    ADD        shift, and go to state 74
-    SUB        shift, and go to state 75
-    MULT       shift, and go to state 76
-    DIV        shift, and go to state 77
-    MOD        shift, and go to state 78
-    LESSTH     shift, and go to state 79
-    GREATTH    shift, and go to state 80
-    LESSTHEQ   shift, and go to state 81
-    GREATTHEQ  shift, and go to state 82
-    EQUALS     shift, and go to state 83
-    NOTEQUALS  shift, and go to state 84
+    ADD          shift, and go to state 74
+    SUB          shift, and go to state 75
+    MULT         shift, and go to state 76
+    DIV          shift, and go to state 77
+    MOD          shift, and go to state 78
+    LESSTHAN     shift, and go to state 79
+    GREATERTHAN  shift, and go to state 80
+    LEQ          shift, and go to state 81
+    GEQ          shift, and go to state 82
+    EQUALS       shift, and go to state 83
+    NOTEQUALS    shift, and go to state 84
 
     $default  reduce using rule 50 (ExprList)
 
 
-state 154
-
-   47 PrintStmt: PRINTF LPAR STRINGCONSTANT COMMA ExprList RPAR SEMICOLON .
-
-    $default  reduce using rule 47 (PrintStmt)
-
-
 state 155
 
-   39 ForStmt: FOR LPAR SEMICOLON Expr SEMICOLON Expr RPAR Stmt .
+   39 ForStmt: FOR LPAREN SEMICOLON Expr SEMICOLON Expr RPAREN Stmt .
 
     $default  reduce using rule 39 (ForStmt)
 
 
 state 156
 
-   44 ForStmt: FOR LPAR Expr SEMICOLON SEMICOLON Expr RPAR Stmt .
+   44 ForStmt: FOR LPAREN Expr SEMICOLON SEMICOLON Expr RPAREN Stmt .
 
     $default  reduce using rule 44 (ForStmt)
 
 
 state 157
 
-   38 ForStmt: FOR LPAR Expr SEMICOLON Expr SEMICOLON RPAR Stmt .
+   38 ForStmt: FOR LPAREN Expr SEMICOLON Expr SEMICOLON RPAREN Stmt .
 
     $default  reduce using rule 38 (ForStmt)
 
 
 state 158
 
-   40 ForStmt: FOR LPAR Expr SEMICOLON Expr SEMICOLON Expr RPAR . Stmt
+   40 ForStmt: FOR LPAREN Expr SEMICOLON Expr SEMICOLON Expr RPAREN . Stmt
 
-    SUB             shift, and go to state 34
-    SEMICOLON       shift, and go to state 35
-    IF              shift, and go to state 36
-    RETURN          shift, and go to state 37
-    FOR             shift, and go to state 38
-    WHILE           shift, and go to state 39
-    PRINTF          shift, and go to state 40
-    LPAR            shift, and go to state 41
-    LBRACE          shift, and go to state 30
-    ID              shift, and go to state 13
-    BOOLCONSTANT    shift, and go to state 43
-    INTCONSTANT     shift, and go to state 44
-    STRINGCONSTANT  shift, and go to state 45
-    CHARCONSTANT    shift, and go to state 46
+    IF           shift, and go to state 34
+    FOR          shift, and go to state 35
+    WHILE        shift, and go to state 36
+    LPAREN       shift, and go to state 37
+    LBRACE       shift, and go to state 30
+    BOOLCONST    shift, and go to state 39
+    INTCONST     shift, and go to state 40
+    STRINGCONST  shift, and go to state 41
+    CHARCONST    shift, and go to state 42
+    SUB          shift, and go to state 43
+    SEMICOLON    shift, and go to state 44
+    RETURN       shift, and go to state 45
+    PRINTF       shift, and go to state 46
+    ID           shift, and go to state 13
 
     StmtBlock   go to state 48
     Stmt        go to state 159
@@ -2718,6 +2718,6 @@ state 158
 
 state 159
 
-   40 ForStmt: FOR LPAR Expr SEMICOLON Expr SEMICOLON Expr RPAR Stmt .
+   40 ForStmt: FOR LPAREN Expr SEMICOLON Expr SEMICOLON Expr RPAREN Stmt .
 
     $default  reduce using rule 40 (ForStmt)

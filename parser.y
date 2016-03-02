@@ -1,50 +1,51 @@
 %{
 
 #include <stdio.h>
+#include <stdlib.h>
 int yylex();
+extern FILE *yyin;
 void yyerror(const char *s);
 
 %}
 
-
-%token NEWLINE 
+%token IF 
+%token ELSE 
+%token FOR 
+%token WHILE 
+%token LPAREN 
+%token RPAREN  
+%token LBRACE 
+%token RBRACE 
 %token INT 
 %token CHAR 
 %token STRING 
+%token BOOL 
 %token ADD 
+%token BOOLCONST
+%token INTCONST 
+%token STRINGCONST
+%token CHARCONST
 %token SUB 
 %token MULT 
 %token DIV 
 %token MOD 
-%token LESSTH 
-%token GREATTH 
-%token LESSTHEQ 
-%token GREATTHEQ 
+%token LESSTHAN 
+%token GREATERTHAN 
+%token LEQ 
+%token GEQ 
 %token EQUALS 
 %token NOTEQUALS 
 %token EQUAL 
 %token SEMICOLON
 %token COMMA 
-%token BOOL 
-%token IF 
-%token ELSE 
 %token RETURN 
-%token FOR 
-%token VOID 
-%token WHILE 
 %token PRINTF 
-%token LPAR 
-%token RPAR  
-%token LBRACE 
-%token RBRACE 
+%token VOID 
 %token ID 
-%token BOOLCONSTANT
-%token INTCONSTANT 
-%token STRINGCONSTANT
-%token CHARCONSTANT
+%token NEWLINE 
 
 %left ADD SUB MULT DIV MOD 
-%left LESSTH GREATTH LESSTHEQ GREATTHEQ EQUALS NOTEQUALS
+%left LESSTHAN GREATERTHAN LEQ GEQ EQUALS NOTEQUALS
 %right EQUAL ELSE 
 %nonassoc NOELSE
 
@@ -52,10 +53,10 @@ void yyerror(const char *s);
 
 %%
 
-Program : DeclPrime { printf(" reduce[1]"); }
+Program : Declare { printf(" reduce[1]"); }
 		;
 
-DeclPrime : DeclPrime Decl { printf(" reduce[2]"); }
+Declare : Declare Decl { printf(" reduce[2]"); }
     	 | Decl { printf(" reduce[3]"); }
     	 ;
 
@@ -79,8 +80,8 @@ Type : INT { printf(" reduce[8]"); }
      ;
 
 
-FunctionDecl : Type Identifier LPAR OptionalFormals RPAR StmtBlock { printf(" reduce[12]"); }
-			 | VOID Identifier LPAR OptionalFormals RPAR StmtBlock { printf(" reduce[13]"); }
+FunctionDecl : Type Identifier LPAREN OptionalFormals RPAREN StmtBlock { printf(" reduce[12]"); }
+			 | VOID Identifier LPAREN OptionalFormals RPAREN StmtBlock { printf(" reduce[13]"); }
 			 ;
 
 
@@ -124,24 +125,24 @@ Stmt : PrintStmt { printf(" reduce[26]"); }
 	 ;
 
 
-IfStmt : IF LPAR Expr RPAR Stmt ELSE Stmt { printf(" reduce[34]"); }
-	   | IF LPAR Expr RPAR Stmt %prec NOELSE { printf(" reduce[35]"); }
+IfStmt : IF LPAREN Expr RPAREN Stmt ELSE Stmt { printf(" reduce[34]"); }
+	   | IF LPAREN Expr RPAREN Stmt %prec NOELSE { printf(" reduce[35]"); }
 	   ;
 
 
 
-WhileStmt : WHILE LPAR Expr RPAR Stmt { printf(" reduce[36]"); }
+WhileStmt : WHILE LPAREN Expr RPAREN Stmt { printf(" reduce[36]"); }
 		  ;
 
 
-ForStmt : FOR LPAR SEMICOLON Expr SEMICOLON RPAR Stmt { printf(" reduce[37]"); }
-		| FOR LPAR Expr SEMICOLON Expr SEMICOLON RPAR Stmt { printf(" reduce[38]"); }
-		| FOR LPAR SEMICOLON Expr SEMICOLON Expr RPAR Stmt { printf(" reduce[39]"); }
-		| FOR LPAR Expr SEMICOLON Expr SEMICOLON Expr RPAR Stmt { printf(" reduce[40]"); }
-		| FOR LPAR Expr SEMICOLON SEMICOLON RPAR Stmt { printf(" reduce[41]"); }
-		| FOR LPAR SEMICOLON SEMICOLON Expr RPAR Stmt { printf(" reduce[42]"); }
-		| FOR LPAR SEMICOLON SEMICOLON RPAR Stmt { printf(" reduce[43]"); }
-		| FOR LPAR Expr SEMICOLON SEMICOLON Expr RPAR Stmt { printf(" reduce[44]"); } 
+ForStmt : FOR LPAREN SEMICOLON Expr SEMICOLON RPAREN Stmt { printf(" reduce[37]"); }
+		| FOR LPAREN Expr SEMICOLON Expr SEMICOLON RPAREN Stmt { printf(" reduce[38]"); }
+		| FOR LPAREN SEMICOLON Expr SEMICOLON Expr RPAREN Stmt { printf(" reduce[39]"); }
+		| FOR LPAREN Expr SEMICOLON Expr SEMICOLON Expr RPAREN Stmt { printf(" reduce[40]"); }
+		| FOR LPAREN Expr SEMICOLON SEMICOLON RPAREN Stmt { printf(" reduce[41]"); }
+		| FOR LPAREN SEMICOLON SEMICOLON Expr RPAREN Stmt { printf(" reduce[42]"); }
+		| FOR LPAREN SEMICOLON SEMICOLON RPAREN Stmt { printf(" reduce[43]"); }
+		| FOR LPAREN Expr SEMICOLON SEMICOLON Expr RPAREN Stmt { printf(" reduce[44]"); } 
 		;
 
 
@@ -152,9 +153,9 @@ ReturnStmt : RETURN SEMICOLON { printf(" reduce[45]"); }
 
 
 
-PrintStmt : PRINTF LPAR STRINGCONSTANT COMMA ExprList RPAR SEMICOLON { printf(" reduce[47]"); }
-		  | PRINTF LPAR Constant RPAR SEMICOLON { printf(" reduce[48]"); }
-		  | PRINTF LPAR ID RPAR SEMICOLON { printf(" reduce[49]"); }
+PrintStmt : PRINTF LPAREN STRINGCONST COMMA ExprList RPAREN SEMICOLON { printf(" reduce[47]"); }
+		  | PRINTF LPAREN Constant RPAREN SEMICOLON { printf(" reduce[48]"); }
+		  | PRINTF LPAREN ID RPAREN SEMICOLON { printf(" reduce[49]"); }
 		  ;
 
 
@@ -172,24 +173,24 @@ Expr : Identifier EQUAL Expr { printf(" reduce[52]"); }
 	 | Constant { printf(" reduce[53]"); }
 	 | Identifier { printf(" reduce[54]"); }
 	 | Call { printf(" reduce[55]"); }
-	 | LPAR Expr RPAR { printf(" reduce[56] "); }
+	 | LPAREN Expr RPAREN { printf(" reduce[56] "); }
 	 | Expr ADD Expr { printf(" reduce[57]"); }
 	 | Expr SUB Expr { printf(" reduce[58]"); }
 	 | Expr MULT Expr { printf(" reduce[59]"); }
 	 | Expr DIV Expr { printf(" reduce[60]"); }
 	 | Expr MOD Expr { printf(" reduce[61]"); }
 	 | SUB Expr { printf(" reduce[62]"); }
-	 | Expr LESSTH Expr { printf(" reduce[63]"); }
-	 | Expr LESSTHEQ Expr { printf(" reduce[64]"); }
-	 | Expr GREATTH Expr { printf(" reduce[65]"); }
-	 | Expr GREATTHEQ Expr { printf(" reduce[66]"); }
+	 | Expr LESSTHAN Expr { printf(" reduce[63]"); }
+	 | Expr LEQ Expr { printf(" reduce[64]"); }
+	 | Expr GREATERTHAN Expr { printf(" reduce[65]"); }
+	 | Expr GEQ Expr { printf(" reduce[66]"); }
 	 | Expr EQUALS Expr { printf(" reduce[67]"); }
 	 | Expr NOTEQUALS Expr { printf(" reduce[68]"); }
 	 ;
 
 
 
-Call : Identifier LPAR OptionalExprList RPAR { printf(" reduce[69]"); }
+Call : Identifier LPAREN OptionalExprList RPAREN { printf(" reduce[69]"); }
 	 ;
 
 
@@ -207,27 +208,29 @@ Actuals : Expr { printf(" reduce[73]"); }
 		;
 
 
-Constant : STRINGCONSTANT { printf(" reduce[75]"); }
-		 | INTCONSTANT { printf(" reduce[76]"); }
-		 | BOOLCONSTANT { printf(" reduce[77]"); }
-		 | CHARCONSTANT { printf(" reduce[78]"); }
+Constant : STRINGCONST { printf(" reduce[75]"); }
+		 | INTCONST { printf(" reduce[76]"); }
+		 | BOOLCONST { printf(" reduce[77]"); }
+		 | CHARCONST { printf(" reduce[78]"); }
 		 ;  
 
-%% 
+%%
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	if (yyparse() == 0) {
-		printf("\n[accept]\n");
+
+  //opens file using command line args
+  yyin = fopen(argv[1], "r");
+	//only one file at a time...
+  
+  if (yyparse() == 0) {
+		printf("\n[accept]\n\n\n");
+    printf("success!\n");
 	}
 }
 
 void yyerror(char const *s)
 {
-	//fprintf(stderr, "\n%s", s);
-	printf(" \n[reject]\n");
+	printf(" \n[reject]\n\n\n");
+  printf("failure :(\n");
 }
-
-
-
-
