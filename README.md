@@ -2,7 +2,7 @@
 
 ## Building the project
 
-```$ git clone https://codebank.xyz/sharatv/CS411-P2.git```
+```$ git clone https://github.com/weirdfishes/lex-and-parse.git```
 
 ```$ bison -vd parser.y```
 
